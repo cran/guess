@@ -30,9 +30,7 @@ fit_model <- function(pre_test, pst_test, g, est.param, force9 = FALSE) {
   validate_dataframe(pst_test, "pst_test")
   validate_compatible_dataframes(pre_test, pst_test)
   
-  if (is.null(g) || is.null(est.param)) {
-    stop("Both g and est.param must be provided.")
-  }
+  validate_required(g = g, est.param = est.param)
   
   # Generate transition matrix
   data <- multi_transmat(pre_test, pst_test, force9 = force9)
@@ -71,9 +69,10 @@ fit_model <- function(pre_test, pst_test, g, est.param, force9 = FALSE) {
     }
     
     # Perform chi-square test
-    observed_probs <- data[i, ] / total_obs
+    observed <- data[i, ]
+    expected_probs <- expected / sum(expected)
     chi_test <- suppressWarnings(
-      chisq.test(expected, p = observed_probs)
+      chisq.test(observed, p = expected_probs)
     )
     
     # Store results

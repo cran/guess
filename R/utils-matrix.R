@@ -76,7 +76,7 @@ calculate_expected_values <- function(gamma_i, params, total_obs, model_type = "
     expected <- numeric(4)
     expected[1] <- (1 - gamma_i) * (1 - gamma_i) * params[1] * total_obs
     expected[2] <- ((1 - gamma_i) * gamma_i * params[1] + (1 - gamma_i) * params[2]) * total_obs
-    expected[3] <- (1 - gamma_i) * params[3] * params[1] * total_obs
+    expected[3] <- (1 - gamma_i) * gamma_i * params[1] * total_obs
     expected[4] <- (gamma_i * gamma_i * params[1] + gamma_i * params[2] + params[3]) * total_obs
   } else {
     expected <- numeric(9)
