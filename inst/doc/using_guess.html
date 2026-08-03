@@ -12,7 +12,7 @@
 
 <meta name="author" content="Gaurav Sood" />
 
-<meta name="date" content="2026-03-30" />
+<meta name="date" content="2026-08-02" />
 
 <title>Using guess</title>
 
@@ -341,7 +341,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">Using guess</h1>
 <h4 class="author">Gaurav Sood</h4>
-<h4 class="date">2026-03-30</h4>
+<h4 class="date">2026-08-02</h4>
 
 
 
@@ -441,7 +441,7 @@ details.</p>
 <p>To get the current development version from GitHub:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># install.packages(&quot;devtools&quot;)</span></span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">library</span>(devtools)</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co">#devtools::install_github(&quot;soodoku/guess&quot;)</span></span></code></pre></div>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co"># devtools::install_github(&quot;soodoku/guess&quot;)</span></span></code></pre></div>
 </div>
 <div id="usage" class="section level3">
 <h3>Usage</h3>
@@ -465,7 +465,7 @@ all <code>Don&#39;t Know</code> responses as ‘d’.</li>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">library</span>(guess)</span>
 <span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
 <span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co"># Generate some data without DK</span></span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>pre_test <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">item1 =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="at">item2 =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>)) </span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>pre_test <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">item1 =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="at">item2 =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
 <span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>pst_test <span class="ot">&lt;-</span> pre_test <span class="sc">+</span> <span class="fu">cbind</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>))</span>
 <span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>lucky <span class="ot">&lt;-</span> <span class="fu">rep</span>(.<span class="dv">25</span>, <span class="dv">2</span>)</span>
 <span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a></span>
@@ -482,7 +482,7 @@ all <code>Don&#39;t Know</code> responses as ‘d’.</li>
 <div id="transition-matrix" class="section level4">
 <h4>Transition Matrix</h4>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># Without Don&#39;t Know</span></span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>pre_test_var <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>) </span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>pre_test_var <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>pst_test_var <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>)</span>
 <span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">transmat</span>(pre_test_var, pst_test_var))</span>
 <span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a></span>
@@ -495,40 +495,40 @@ all <code>Don&#39;t Know</code> responses as ‘d’.</li>
 <h4>Adjusting Using the Latent Class Model</h4>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># Create example data for demonstration</span></span>
 <span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>nitems <span class="ot">&lt;-</span> <span class="dv">10</span>  <span class="co"># Number of knowledge questions</span></span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>npeople <span class="ot">&lt;-</span> <span class="dv">100</span>  <span class="co"># Number of respondents</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>nitems <span class="ot">&lt;-</span> <span class="dv">10</span> <span class="co"># Number of knowledge questions</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>npeople <span class="ot">&lt;-</span> <span class="dv">100</span> <span class="co"># Number of respondents</span></span>
 <span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a></span>
 <span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co"># Generate simulated pre-test and post-test responses (0=incorrect, 1=correct)</span></span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>pre_test <span class="ot">&lt;-</span> <span class="fu">replicate</span>(nitems, <span class="fu">rbinom</span>(npeople, <span class="dv">1</span>, <span class="fl">0.4</span>))  <span class="co"># 40% correct pre-test</span></span>
-<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>post_test <span class="ot">&lt;-</span> <span class="fu">replicate</span>(nitems, <span class="fu">rbinom</span>(npeople, <span class="dv">1</span>, <span class="fl">0.6</span>))  <span class="co"># 60% correct post-test</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>pre_test <span class="ot">&lt;-</span> <span class="fu">replicate</span>(nitems, <span class="fu">rbinom</span>(npeople, <span class="dv">1</span>, <span class="fl">0.4</span>)) <span class="co"># 40% correct pre-test</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>post_test <span class="ot">&lt;-</span> <span class="fu">replicate</span>(nitems, <span class="fu">rbinom</span>(npeople, <span class="dv">1</span>, <span class="fl">0.6</span>)) <span class="co"># 60% correct post-test</span></span>
 <span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a></span>
 <span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>transmatrix <span class="ot">&lt;-</span> <span class="fu">multi_transmat</span>(pre_test, post_test)</span>
 <span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a></span>
 <span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">lca_cor</span>(transmatrix)</span>
 <span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a></span>
-<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="fu">round</span>(res<span class="sc">$</span>param.lca[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="dv">3</span>)</span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="fu">round</span>(res<span class="sc">$</span>params[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="dv">3</span>)</span>
 <span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a></span>
-<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="fu">round</span>(res<span class="sc">$</span>est.learning[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="dv">3</span>)</span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="fu">round</span>(res<span class="sc">$</span>learning[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="dv">3</span>)</span>
 <span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a></span>
 <span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="co"># LCA Correction with Don&#39;t Know responses</span></span>
 <span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a><span class="co"># Generate data with Don&#39;t Know responses (coded as 2)</span></span>
-<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a>pre_test_dk <span class="ot">&lt;-</span> <span class="fu">replicate</span>(nitems, <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>), npeople, <span class="at">replace=</span><span class="cn">TRUE</span>, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.35</span>, <span class="fl">0.15</span>)))</span>
-<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a>post_test_dk <span class="ot">&lt;-</span> <span class="fu">replicate</span>(nitems, <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>), npeople, <span class="at">replace=</span><span class="cn">TRUE</span>, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.4</span>, <span class="fl">0.45</span>, <span class="fl">0.15</span>)))</span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a>pre_test_dk <span class="ot">&lt;-</span> <span class="fu">replicate</span>(nitems, <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>), npeople, <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.35</span>, <span class="fl">0.15</span>)))</span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a>post_test_dk <span class="ot">&lt;-</span> <span class="fu">replicate</span>(nitems, <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>), npeople, <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.4</span>, <span class="fl">0.45</span>, <span class="fl">0.15</span>)))</span>
 <span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a></span>
 <span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a>transmatrix <span class="ot">&lt;-</span> <span class="fu">multi_transmat</span>(pre_test_dk, post_test_dk, <span class="at">force9 =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb5-24"><a href="#cb5-24" tabindex="-1"></a>res_dk <span class="ot">&lt;-</span> <span class="fu">lca_cor</span>(transmatrix)</span>
 <span id="cb5-25"><a href="#cb5-25" tabindex="-1"></a></span>
-<span id="cb5-26"><a href="#cb5-26" tabindex="-1"></a><span class="fu">round</span>(res_dk<span class="sc">$</span>param.lca[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="dv">3</span>)</span>
+<span id="cb5-26"><a href="#cb5-26" tabindex="-1"></a><span class="fu">round</span>(res_dk<span class="sc">$</span>params[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="dv">3</span>)</span>
 <span id="cb5-27"><a href="#cb5-27" tabindex="-1"></a></span>
-<span id="cb5-28"><a href="#cb5-28" tabindex="-1"></a><span class="fu">round</span>(res_dk<span class="sc">$</span>est.learning[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="dv">3</span>)</span></code></pre></div>
+<span id="cb5-28"><a href="#cb5-28" tabindex="-1"></a><span class="fu">round</span>(res_dk<span class="sc">$</span>learning[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="dv">3</span>)</span></code></pre></div>
 </div>
 <div id="adjust-by-groups" class="section level4">
 <h4>Adjust by Groups</h4>
 <p>Account for propensity to guess and item level attribute that a guess
 would be lucky.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>pre_test_var <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">pre=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="st">&quot;d&quot;</span>, <span class="st">&quot;d&quot;</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="cn">NA</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="st">&#39;d&#39;</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>pst_test_var <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">pst=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="cn">NA</span>, <span class="dv">1</span>, <span class="st">&quot;d&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="st">&quot;d&quot;</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>grp <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">10</span>))</span>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>pre_test_var <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">pre =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="st">&quot;d&quot;</span>, <span class="st">&quot;d&quot;</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="cn">NA</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="st">&quot;d&quot;</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>pst_test_var <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">pst =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="cn">NA</span>, <span class="dv">1</span>, <span class="st">&quot;d&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="st">&quot;d&quot;</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>grp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">10</span>))</span>
 <span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a></span>
 <span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="fu">group_adj</span>(pre_test_var, pst_test_var, <span class="at">gamma =</span> <span class="dv">0</span>, <span class="at">dk =</span> <span class="dv">0</span>)<span class="sc">$</span>learn</span>
 <span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="fu">group_adj</span>(pre_test_var, pst_test_var, <span class="at">gamma =</span> .<span class="dv">25</span>, <span class="at">dk =</span> <span class="dv">0</span>)<span class="sc">$</span>learn</span>
@@ -545,12 +545,12 @@ would be lucky.</p>
 </div>
 <div id="standard-errors" class="section level4">
 <h4>Standard Errors</h4>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># Raw </span></span>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># Raw</span></span>
 <span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="co"># Generate some data without DK</span></span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>pre_test <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">item1 =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="at">item2 =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>)) </span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>pre_test <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">item1 =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="at">item2 =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
 <span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>pst_test <span class="ot">&lt;-</span> pre_test <span class="sc">+</span> <span class="fu">cbind</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>))</span>
 <span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>diff <span class="ot">&lt;-</span> pst_test <span class="sc">-</span> pre_test</span>
-<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>stnd_err <span class="ot">&lt;-</span>  <span class="fu">sapply</span>(diff, <span class="cf">function</span>(x) <span class="fu">sqrt</span>(<span class="fu">var</span>(x, <span class="at">na.rm =</span> T)<span class="sc">/</span><span class="fu">length</span>(x)))</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>stnd_err <span class="ot">&lt;-</span> <span class="fu">sapply</span>(diff, <span class="cf">function</span>(x) <span class="fu">sqrt</span>(<span class="fu">var</span>(x, <span class="at">na.rm =</span> T) <span class="sc">/</span> <span class="fu">length</span>(x)))</span>
 <span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a></span>
 <span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="co"># Bootstrapped s.e.</span></span>
 <span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a></span>
@@ -563,13 +563,284 @@ would be lucky.</p>
 </div>
 <div id="fit" class="section level4">
 <h4>Fit</h4>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">fit_nodk</span>(pre_test, post_test, res<span class="sc">$</span>param.lca[<span class="dv">4</span>, ], res<span class="sc">$</span>param.lca[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, ])</span>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">fit_nodk</span>(pre_test, post_test, res<span class="sc">$</span>params[<span class="st">&quot;gamma&quot;</span>, ], res<span class="sc">$</span>params[<span class="fu">c</span>(<span class="st">&quot;gg&quot;</span>, <span class="st">&quot;gk&quot;</span>, <span class="st">&quot;kk&quot;</span>), ])</span>
 <span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="fu">print</span>(fit[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>])</span>
 <span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">fit_dk</span>(pre_test_dk, post_test_dk, res_dk<span class="sc">$</span>param.lca[<span class="dv">8</span>, ], res_dk<span class="sc">$</span>param.lca[<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>, ], <span class="at">force9 =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">fit_dk</span>(pre_test_dk, post_test_dk, res_dk<span class="sc">$</span>params[<span class="st">&quot;gamma&quot;</span>, ], res_dk<span class="sc">$</span>params[<span class="fu">c</span>(<span class="st">&quot;gg&quot;</span>, <span class="st">&quot;gk&quot;</span>, <span class="st">&quot;gd&quot;</span>, <span class="st">&quot;kk&quot;</span>, <span class="st">&quot;dg&quot;</span>, <span class="st">&quot;dk&quot;</span>, <span class="st">&quot;dd&quot;</span>), ], <span class="at">force9 =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a></span>
 <span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="fu">print</span>(fit[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>])</span></code></pre></div>
+</div>
+<div id="model-criticism-perplexity-and-cross-validation" class="section level4">
+<h4>Model Criticism: Perplexity and Cross-Validation</h4>
+<p>The package provides tools to evaluate model fit through perplexity
+and cross-validation. These help assess whether the LCA model adequately
+captures the data-generating process.</p>
+<p><strong>Perplexity</strong> measures how well the model predicts the
+data. Lower values indicate better fit. It can be interpreted as the
+effective number of equiprobable outcomes the model assigns to each
+observation.</p>
+<p><strong>Cross-validation</strong> provides held-out performance
+estimates, helping detect overfitting.</p>
+<p>Two sets of functions are available: - <code>*_items</code>: Work
+with aggregated transition matrices, split by items -
+<code>*_individuals</code>: Work with individual-level data, split by
+individuals</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># Generate data</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>nitems <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>npeople <span class="ot">&lt;-</span> <span class="dv">200</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>pre_test <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">replicate</span>(nitems, <span class="fu">rbinom</span>(npeople, <span class="dv">1</span>, <span class="fl">0.4</span>)))</span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>post_test <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">replicate</span>(nitems, <span class="fu">pmin</span>(<span class="dv">1</span>, pre_test <span class="sc">+</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>  <span class="fu">replicate</span>(nitems, <span class="fu">rbinom</span>(npeople, <span class="dv">1</span>, <span class="fl">0.25</span>)))))</span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="fu">names</span>(pre_test) <span class="ot">&lt;-</span> <span class="fu">names</span>(post_test) <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;item&quot;</span>, <span class="dv">1</span><span class="sc">:</span>nitems)</span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co"># Fit model using convenience wrapper</span></span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">item_lca_fit</span>(pre_test, post_test)</span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="co"># Or equivalently:</span></span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="co"># transmatrix &lt;- multi_transmat(pre_test, post_test)</span></span>
+<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a><span class="co"># fit &lt;- lca_cor(transmatrix)</span></span></code></pre></div>
+<div id="perplexity-from-aggregated-data-items" class="section level5">
+<h5>Perplexity from aggregated data (items)</h5>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>transmatrix <span class="ot">&lt;-</span> <span class="fu">multi_transmat</span>(pre_test, post_test)</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="co"># Overall perplexity</span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="fu">perplexity_items</span>(fit, transmatrix)</span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="co"># Per-item perplexity</span></span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a><span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>nitems, <span class="cf">function</span>(i) <span class="fu">perplexity_items</span>(fit, transmatrix, <span class="at">item =</span> i))</span></code></pre></div>
+</div>
+<div id="perplexity-from-individual-data" class="section level5">
+<h5>Perplexity from individual data</h5>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># Overall perplexity (averaged across individuals)</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="fu">perplexity_individuals</span>(fit, pre_test, post_test)</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="co"># Per-individual perplexity (identify poorly-fit respondents)</span></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>ind_ppl <span class="ot">&lt;-</span> <span class="fu">perplexity_individuals</span>(fit, pre_test, post_test, <span class="at">per_individual =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="fu">hist</span>(ind_ppl, <span class="at">main =</span> <span class="st">&quot;Distribution of Individual Perplexity&quot;</span>)</span></code></pre></div>
+</div>
+<div id="cross-validation-over-items" class="section level5">
+<h5>Cross-validation over items</h5>
+<p>Useful when you have many items and want to assess generalization to
+new items.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>transmatrix <span class="ot">&lt;-</span> <span class="fu">multi_transmat</span>(pre_test, post_test)</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>cv_result <span class="ot">&lt;-</span> <span class="fu">cv_items</span>(transmatrix, <span class="at">k =</span> <span class="dv">5</span>, <span class="at">seed =</span> <span class="dv">123</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>cv_result<span class="sc">$</span>perplexity <span class="co"># Held-out perplexity</span></span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>cv_result<span class="sc">$</span>se <span class="co"># Standard error across folds</span></span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>cv_result<span class="sc">$</span>fold_results <span class="co"># Per-fold details</span></span></code></pre></div>
+</div>
+<div id="cross-validation-over-individuals" class="section level5">
+<h5>Cross-validation over individuals</h5>
+<p>Useful when you want to assess generalization to new respondents.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>cv_result <span class="ot">&lt;-</span> <span class="fu">cv_individuals</span>(pre_test, post_test, <span class="at">k =</span> <span class="dv">5</span>, <span class="at">seed =</span> <span class="dv">123</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>cv_result<span class="sc">$</span>perplexity <span class="co"># Held-out perplexity</span></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>cv_result<span class="sc">$</span>se <span class="co"># Standard error across folds</span></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>cv_result<span class="sc">$</span>fold_results <span class="co"># Per-fold details</span></span></code></pre></div>
+</div>
+<div id="model-comparison" class="section level5">
+<h5>Model comparison</h5>
+<p>Use perplexity to compare different model specifications or parameter
+settings.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="co"># True parameters (if known from simulation)</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>true_params <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.4</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>, <span class="fl">0.25</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a><span class="co"># Misspecified parameters</span></span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>bad_params <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.8</span>, <span class="fl">0.5</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a>transmatrix <span class="ot">&lt;-</span> <span class="fu">multi_transmat</span>(pre_test, post_test)</span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a><span class="co"># Compare: lower perplexity = better fit</span></span>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a><span class="fu">perplexity_items</span>(true_params, transmatrix)</span>
+<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a><span class="fu">perplexity_items</span>(bad_params, transmatrix)</span>
+<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a><span class="fu">perplexity_items</span>(fit, transmatrix) <span class="co"># Fitted model should be close to true</span></span></code></pre></div>
+</div>
+</div>
+<div id="simulation-and-parameter-recovery-validation" class="section level4">
+<h4>Simulation and Parameter Recovery Validation</h4>
+<p>The package provides functions to simulate data from known
+parameters, useful for validating the estimation procedure and
+understanding model behavior.</p>
+<div id="basic-simulation-no-dk-model" class="section level5">
+<h5>Basic simulation (No-DK model)</h5>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="co"># Simulate data with known learning rate of 30%</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>sim <span class="ot">&lt;-</span> <span class="fu">simulate_lca</span>(</span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">500</span>, <span class="co"># 500 individuals</span></span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>  <span class="at">n_items =</span> <span class="dv">2</span>, <span class="co"># 2 test items</span></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>  <span class="at">gg =</span> <span class="fl">0.35</span>, <span class="co"># 35% in guess-&gt;guess (stable ignorance)</span></span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a>  <span class="at">gk =</span> <span class="fl">0.30</span>, <span class="co"># 30% in guess-&gt;know (LEARNED)</span></span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a>  <span class="at">kk =</span> <span class="fl">0.35</span>, <span class="co"># 35% in know-&gt;know (stable knowledge)</span></span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a>  <span class="at">gamma =</span> <span class="fl">0.25</span>, <span class="co"># 25% chance of guessing correctly</span></span>
+<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a>  <span class="at">seed =</span> <span class="dv">123</span></span>
+<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a>)</span>
+<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a><span class="co"># Fit model and check recovery</span></span>
+<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">item_lca_fit</span>(sim<span class="sc">$</span>pre, sim<span class="sc">$</span>post)</span>
+<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a>fit<span class="sc">$</span>params[<span class="st">&quot;gk&quot;</span>, ] <span class="co"># Should be close to 0.30 (true learning rate)</span></span></code></pre></div>
+</div>
+<div id="simulation-with-dont-know-responses" class="section level5">
+<h5>Simulation with Don’t Know responses</h5>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="co"># Simulate DK data with known parameters</span></span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>sim_dk <span class="ot">&lt;-</span> <span class="fu">simulate_lca_dk</span>(</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">500</span>,</span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>  <span class="at">n_items =</span> <span class="dv">1</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a>  <span class="at">gg =</span> <span class="fl">0.25</span>, <span class="at">gk =</span> <span class="fl">0.15</span>, <span class="at">gd =</span> <span class="fl">0.10</span>,</span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a>  <span class="at">kk =</span> <span class="fl">0.20</span>, <span class="at">dg =</span> <span class="fl">0.10</span>, <span class="at">dk =</span> <span class="fl">0.10</span>,</span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a>  <span class="at">dd =</span> <span class="fl">0.10</span>, <span class="at">gamma =</span> <span class="fl">0.25</span>,</span>
+<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a>  <span class="at">seed =</span> <span class="dv">456</span></span>
+<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a>)</span>
+<span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a><span class="co"># Fit DK model</span></span>
+<span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a>fit_dk <span class="ot">&lt;-</span> <span class="fu">item_lca_fit</span>(sim_dk<span class="sc">$</span>pre, sim_dk<span class="sc">$</span>post)</span>
+<span id="cb16-13"><a href="#cb16-13" tabindex="-1"></a>fit_dk<span class="sc">$</span>params[<span class="st">&quot;gk&quot;</span>, ] <span class="co"># Should be close to 0.15</span></span></code></pre></div>
+</div>
+<div id="comprehensive-parameter-recovery-validation" class="section level5">
+<h5>Comprehensive parameter recovery validation</h5>
+<p>Use <code>validate_recovery()</code> for Monte Carlo studies of
+parameter recovery:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="co"># Run 100 simulations to assess parameter recovery</span></span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">validate_recovery</span>(</span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>  <span class="at">true_params =</span> <span class="fu">c</span>(<span class="at">gg =</span> <span class="fl">0.35</span>, <span class="at">gk =</span> <span class="fl">0.30</span>, <span class="at">kk =</span> <span class="fl">0.35</span>, <span class="at">gamma =</span> <span class="fl">0.25</span>),</span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">500</span>, <span class="co"># Sample size per simulation</span></span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a>  <span class="at">n_items =</span> <span class="dv">2</span>, <span class="co"># Number of items</span></span>
+<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a>  <span class="at">n_sims =</span> <span class="dv">100</span>, <span class="co"># Number of simulations</span></span>
+<span id="cb17-7"><a href="#cb17-7" tabindex="-1"></a>  <span class="at">seed =</span> <span class="dv">789</span></span>
+<span id="cb17-8"><a href="#cb17-8" tabindex="-1"></a>)</span>
+<span id="cb17-9"><a href="#cb17-9" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" tabindex="-1"></a><span class="co"># View results</span></span>
+<span id="cb17-11"><a href="#cb17-11" tabindex="-1"></a><span class="fu">print</span>(results)</span>
+<span id="cb17-12"><a href="#cb17-12" tabindex="-1"></a><span class="co"># Shows: bias, RMSE, standard error, and coverage for each parameter</span></span></code></pre></div>
+</div>
+</div>
+<div id="statistical-efficiency-sample-size-and-parameter-recovery" class="section level4">
+<h4>Statistical Efficiency: Sample Size and Parameter Recovery</h4>
+<p>Individual-level pre/post response data provides rich information for
+parameter estimation. As sample size increases, the LCA model produces
+more precise estimates with lower bias and better confidence interval
+coverage. This section demonstrates these efficiency gains through
+simulation studies.</p>
+<p>We assess estimation quality using three metrics: -
+<strong>Bias</strong>: Mean estimate minus true value (should approach
+0) - <strong>RMSE</strong>: Root mean squared error (reflects both bias
+and variance) - <strong>Coverage</strong>: Proportion of 95% CIs
+containing the true value (should approach 0.95)</p>
+<div id="sample-size-effect" class="section level5">
+<h5>Sample Size Effect</h5>
+<p>The most fundamental efficiency result is that RMSE decreases
+approximately with 1/√n. Here we compare parameter recovery across
+different sample sizes:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="co"># Compare parameter recovery across sample sizes</span></span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>sample_sizes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">250</span>, <span class="dv">500</span>, <span class="dv">1000</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a>true_params <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">gg =</span> <span class="fl">0.35</span>, <span class="at">gk =</span> <span class="fl">0.30</span>, <span class="at">kk =</span> <span class="fl">0.35</span>, <span class="at">gamma =</span> <span class="fl">0.25</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a>results_by_n <span class="ot">&lt;-</span> <span class="fu">lapply</span>(sample_sizes, <span class="cf">function</span>(n) {</span>
+<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a>  <span class="fu">validate_recovery</span>(true_params, <span class="at">n =</span> n, <span class="at">n_items =</span> <span class="dv">2</span>, <span class="at">n_sims =</span> <span class="dv">100</span>, <span class="at">seed =</span> <span class="dv">123</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a>})</span>
+<span id="cb18-8"><a href="#cb18-8" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" tabindex="-1"></a><span class="co"># Combine into summary table</span></span>
+<span id="cb18-10"><a href="#cb18-10" tabindex="-1"></a>efficiency_table <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, <span class="fu">lapply</span>(<span class="fu">seq_along</span>(sample_sizes), <span class="cf">function</span>(i) {</span>
+<span id="cb18-11"><a href="#cb18-11" tabindex="-1"></a>  r <span class="ot">&lt;-</span> results_by_n[[i]]</span>
+<span id="cb18-12"><a href="#cb18-12" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
+<span id="cb18-13"><a href="#cb18-13" tabindex="-1"></a>    <span class="at">n =</span> sample_sizes[i],</span>
+<span id="cb18-14"><a href="#cb18-14" tabindex="-1"></a>    <span class="at">parameter =</span> r<span class="sc">$</span>parameter,</span>
+<span id="cb18-15"><a href="#cb18-15" tabindex="-1"></a>    <span class="at">bias =</span> <span class="fu">round</span>(r<span class="sc">$</span>bias, <span class="dv">4</span>),</span>
+<span id="cb18-16"><a href="#cb18-16" tabindex="-1"></a>    <span class="at">rmse =</span> <span class="fu">round</span>(r<span class="sc">$</span>rmse, <span class="dv">4</span>),</span>
+<span id="cb18-17"><a href="#cb18-17" tabindex="-1"></a>    <span class="at">coverage =</span> <span class="fu">round</span>(r<span class="sc">$</span>coverage_95, <span class="dv">2</span>)</span>
+<span id="cb18-18"><a href="#cb18-18" tabindex="-1"></a>  )</span>
+<span id="cb18-19"><a href="#cb18-19" tabindex="-1"></a>}))</span>
+<span id="cb18-20"><a href="#cb18-20" tabindex="-1"></a></span>
+<span id="cb18-21"><a href="#cb18-21" tabindex="-1"></a><span class="co"># Display results for the learning parameter (gk)</span></span>
+<span id="cb18-22"><a href="#cb18-22" tabindex="-1"></a>gk_results <span class="ot">&lt;-</span> efficiency_table[efficiency_table<span class="sc">$</span>parameter <span class="sc">==</span> <span class="st">&quot;gk&quot;</span>, ]</span>
+<span id="cb18-23"><a href="#cb18-23" tabindex="-1"></a><span class="fu">print</span>(gk_results)</span></code></pre></div>
+<p>Expected pattern for the learning parameter (gk): - n=100: RMSE
+~0.10-0.12, coverage ~0.85 - n=250: RMSE ~0.06-0.08, coverage ~0.90 -
+n=500: RMSE ~0.04-0.06, coverage ~0.93 - n=1000: RMSE ~0.03-0.04,
+coverage ~0.95</p>
+<p>The ratio of RMSEs between adjacent sample sizes should be
+approximately √2 (e.g., RMSE at n=500 / RMSE at n=1000 ≈ √2), confirming
+the 1/√n efficiency pattern.</p>
+</div>
+<div id="number-of-items-effect" class="section level5">
+<h5>Number of Items Effect</h5>
+<p>Each item provides independent information about the guessing
+probability (gamma). With more items, gamma is estimated more precisely,
+which indirectly improves estimation of the latent class
+proportions:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="co"># Compare recovery with varying number of items</span></span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>n_items_values <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">10</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>true_params <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">gg =</span> <span class="fl">0.35</span>, <span class="at">gk =</span> <span class="fl">0.30</span>, <span class="at">kk =</span> <span class="fl">0.35</span>, <span class="at">gamma =</span> <span class="fl">0.25</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a>results_by_items <span class="ot">&lt;-</span> <span class="fu">lapply</span>(n_items_values, <span class="cf">function</span>(ni) {</span>
+<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a>  <span class="fu">validate_recovery</span>(true_params, <span class="at">n =</span> <span class="dv">500</span>, <span class="at">n_items =</span> ni, <span class="at">n_sims =</span> <span class="dv">50</span>, <span class="at">seed =</span> <span class="dv">456</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a>})</span>
+<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a><span class="co"># Combine results</span></span>
+<span id="cb19-10"><a href="#cb19-10" tabindex="-1"></a>items_table <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, <span class="fu">lapply</span>(<span class="fu">seq_along</span>(n_items_values), <span class="cf">function</span>(i) {</span>
+<span id="cb19-11"><a href="#cb19-11" tabindex="-1"></a>  r <span class="ot">&lt;-</span> results_by_items[[i]]</span>
+<span id="cb19-12"><a href="#cb19-12" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
+<span id="cb19-13"><a href="#cb19-13" tabindex="-1"></a>    <span class="at">n_items =</span> n_items_values[i],</span>
+<span id="cb19-14"><a href="#cb19-14" tabindex="-1"></a>    <span class="at">parameter =</span> r<span class="sc">$</span>parameter,</span>
+<span id="cb19-15"><a href="#cb19-15" tabindex="-1"></a>    <span class="at">rmse =</span> <span class="fu">round</span>(r<span class="sc">$</span>rmse, <span class="dv">4</span>),</span>
+<span id="cb19-16"><a href="#cb19-16" tabindex="-1"></a>    <span class="at">coverage =</span> <span class="fu">round</span>(r<span class="sc">$</span>coverage_95, <span class="dv">2</span>)</span>
+<span id="cb19-17"><a href="#cb19-17" tabindex="-1"></a>  )</span>
+<span id="cb19-18"><a href="#cb19-18" tabindex="-1"></a>}))</span>
+<span id="cb19-19"><a href="#cb19-19" tabindex="-1"></a></span>
+<span id="cb19-20"><a href="#cb19-20" tabindex="-1"></a><span class="co"># Show gamma results (most affected by number of items)</span></span>
+<span id="cb19-21"><a href="#cb19-21" tabindex="-1"></a>gamma_results <span class="ot">&lt;-</span> items_table[items_table<span class="sc">$</span>parameter <span class="sc">==</span> <span class="st">&quot;gamma&quot;</span>, ]</span>
+<span id="cb19-22"><a href="#cb19-22" tabindex="-1"></a><span class="fu">print</span>(gamma_results)</span></code></pre></div>
+<p>With more items, gamma estimation improves substantially because each
+item provides an independent estimate of the guessing rate. This also
+improves the identifiability of the latent class proportions.</p>
+</div>
+<div id="parameter-scenarios" class="section level5">
+<h5>Parameter Scenarios</h5>
+<p>Recovery performance varies with the true parameter configuration.
+Some scenarios are inherently harder to estimate:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="co"># Test different true parameter configurations</span></span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>scenarios <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>  <span class="at">balanced =</span> <span class="fu">c</span>(<span class="at">gg =</span> <span class="fl">0.35</span>, <span class="at">gk =</span> <span class="fl">0.30</span>, <span class="at">kk =</span> <span class="fl">0.35</span>, <span class="at">gamma =</span> <span class="fl">0.25</span>),</span>
+<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a>  <span class="at">high_learning =</span> <span class="fu">c</span>(<span class="at">gg =</span> <span class="fl">0.20</span>, <span class="at">gk =</span> <span class="fl">0.50</span>, <span class="at">kk =</span> <span class="fl">0.30</span>, <span class="at">gamma =</span> <span class="fl">0.25</span>),</span>
+<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a>  <span class="at">low_learning =</span> <span class="fu">c</span>(<span class="at">gg =</span> <span class="fl">0.50</span>, <span class="at">gk =</span> <span class="fl">0.10</span>, <span class="at">kk =</span> <span class="fl">0.40</span>, <span class="at">gamma =</span> <span class="fl">0.25</span>),</span>
+<span id="cb20-6"><a href="#cb20-6" tabindex="-1"></a>  <span class="at">high_guessing =</span> <span class="fu">c</span>(<span class="at">gg =</span> <span class="fl">0.35</span>, <span class="at">gk =</span> <span class="fl">0.30</span>, <span class="at">kk =</span> <span class="fl">0.35</span>, <span class="at">gamma =</span> <span class="fl">0.40</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" tabindex="-1"></a>)</span>
+<span id="cb20-8"><a href="#cb20-8" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" tabindex="-1"></a>scenario_results <span class="ot">&lt;-</span> <span class="fu">lapply</span>(scenarios, <span class="cf">function</span>(params) {</span>
+<span id="cb20-10"><a href="#cb20-10" tabindex="-1"></a>  <span class="fu">validate_recovery</span>(params, <span class="at">n =</span> <span class="dv">500</span>, <span class="at">n_items =</span> <span class="dv">2</span>, <span class="at">n_sims =</span> <span class="dv">50</span>, <span class="at">seed =</span> <span class="dv">789</span>)</span>
+<span id="cb20-11"><a href="#cb20-11" tabindex="-1"></a>})</span>
+<span id="cb20-12"><a href="#cb20-12" tabindex="-1"></a></span>
+<span id="cb20-13"><a href="#cb20-13" tabindex="-1"></a><span class="co"># Compare learning (gk) recovery across scenarios</span></span>
+<span id="cb20-14"><a href="#cb20-14" tabindex="-1"></a>gk_comparison <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb20-15"><a href="#cb20-15" tabindex="-1"></a>  <span class="at">scenario =</span> <span class="fu">names</span>(scenarios),</span>
+<span id="cb20-16"><a href="#cb20-16" tabindex="-1"></a>  <span class="at">true_gk =</span> <span class="fu">sapply</span>(scenarios, <span class="cf">function</span>(p) p[<span class="st">&quot;gk&quot;</span>]),</span>
+<span id="cb20-17"><a href="#cb20-17" tabindex="-1"></a>  <span class="at">bias =</span> <span class="fu">sapply</span>(scenario_results, <span class="cf">function</span>(r) <span class="fu">round</span>(r<span class="sc">$</span>bias[r<span class="sc">$</span>parameter <span class="sc">==</span> <span class="st">&quot;gk&quot;</span>], <span class="dv">4</span>)),</span>
+<span id="cb20-18"><a href="#cb20-18" tabindex="-1"></a>  <span class="at">rmse =</span> <span class="fu">sapply</span>(scenario_results, <span class="cf">function</span>(r) <span class="fu">round</span>(r<span class="sc">$</span>rmse[r<span class="sc">$</span>parameter <span class="sc">==</span> <span class="st">&quot;gk&quot;</span>], <span class="dv">4</span>)),</span>
+<span id="cb20-19"><a href="#cb20-19" tabindex="-1"></a>  <span class="at">coverage =</span> <span class="fu">sapply</span>(scenario_results, <span class="cf">function</span>(r) <span class="fu">round</span>(r<span class="sc">$</span>coverage_95[r<span class="sc">$</span>parameter <span class="sc">==</span> <span class="st">&quot;gk&quot;</span>], <span class="dv">2</span>))</span>
+<span id="cb20-20"><a href="#cb20-20" tabindex="-1"></a>)</span>
+<span id="cb20-21"><a href="#cb20-21" tabindex="-1"></a><span class="fu">print</span>(gk_comparison)</span></code></pre></div>
+</div>
+<div id="why-individual-level-data-provides-efficiency-gains" class="section level5">
+<h5>Why Individual-Level Data Provides Efficiency Gains</h5>
+<p>The key advantage of individual-level data is that it preserves
+<strong>inter-item correlation</strong> within individuals. When we
+observe the same person’s responses across multiple items, we can
+exploit the correlation structure:</p>
+<ul>
+<li>Individuals in the “know-know” (kk) class tend to answer multiple
+items correctly</li>
+<li>Individuals in the “guess-guess” (gg) class show inconsistent
+patterns across items</li>
+<li>This correlation provides information beyond what aggregated
+transition matrices capture</li>
+</ul>
+<p>With aggregated data, we only observe cell counts (e.g., how many
+people went from correct to correct). With individual data, we observe
+that the <em>same</em> person answered correctly on items 1, 2, and
+3—information that helps distinguish true knowledge from lucky
+guessing.</p>
+</div>
 </div>
 </div>
 </div>

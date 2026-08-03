@@ -10,33 +10,33 @@ test_that("bootstrap SEs are consistent with Monte Carlo SEs", {
   n_bootstrap <- 100
   n_mc_sims <- 50
 
-  true_lgg <- 0.40
-  true_lgk <- 0.25
-  true_lkk <- 0.35
+  true_gg <- 0.40
+  true_gk <- 0.25
+  true_kk <- 0.35
   true_gamma <- 0.25
 
   mc_estimates <- matrix(NA, n_mc_sims, 4)
-  colnames(mc_estimates) <- c("lgg", "lgk", "lkk", "gamma")
+  colnames(mc_estimates) <- c("gg", "gk", "kk", "gamma")
 
   for (sim in seq_len(n_mc_sims)) {
     data <- simulate_prepost_data(
       n_obs,
-      c(true_lgg, true_lgk, true_lkk),
+      c(true_gg, true_gk, true_kk),
       true_gamma
     )
     trans <- multi_transmat(data$pre, data$post)
     result <- lca_cor(trans)
-    mc_estimates[sim, ] <- result$param.lca[, 1]
+    mc_estimates[sim, ] <- result$params[, 1]
   }
   mc_se <- apply(mc_estimates, 2, sd)
 
   data <- simulate_prepost_data(
     n_obs,
-    c(true_lgg, true_lgk, true_lkk),
+    c(true_gg, true_gk, true_kk),
     true_gamma
   )
-  bootstrap_result <- lca_se(data$pre, data$post, nsamps = n_bootstrap, seed = 123)
-  bootstrap_se <- bootstrap_result$stnderrs.lca.params[, 1]
+  bootstrap_result <- lca_se(data$pre, data$post, n_resamples = n_bootstrap, seed = 123)
+  bootstrap_se <- bootstrap_result$se_params[, 1]
 
   for (i in seq_len(4)) {
     if (mc_se[i] > 0.01) {
@@ -61,23 +61,23 @@ test_that("95% confidence intervals achieve reasonable coverage", {
   n_obs <- 500
   n_bootstrap <- 50
 
-  true_lgk <- 0.25
+  true_gk <- 0.25
   coverage_count <- 0
 
   for (sim in seq_len(n_sims)) {
-    data <- simulate_prepost_data(n_obs, c(0.4, true_lgk, 0.35), 0.25)
+    data <- simulate_prepost_data(n_obs, c(0.4, true_gk, 0.35), 0.25)
 
     trans <- multi_transmat(data$pre, data$post)
     result <- lca_cor(trans)
-    point_est <- result$param.lca["lgk", 1]
+    point_est <- result$params["gk", 1]
 
-    se_result <- lca_se(data$pre, data$post, nsamps = n_bootstrap, seed = sim)
-    se <- se_result$stnderrs.lca.params["lgk", 1]
+    se_result <- lca_se(data$pre, data$post, n_resamples = n_bootstrap, seed = sim)
+    se <- se_result$se_params["gk", 1]
 
     ci_lower <- point_est - 1.96 * se
     ci_upper <- point_est + 1.96 * se
 
-    if (true_lgk >= ci_lower && true_lgk <= ci_upper) {
+    if (true_gk >= ci_lower && true_gk <= ci_upper) {
       coverage_count <- coverage_count + 1
     }
   }
@@ -100,8 +100,8 @@ test_that("bootstrap SE decreases with sample size", {
     n_obs <- sample_sizes[j]
 
     data <- simulate_prepost_data(n_obs, c(0.4, 0.25, 0.35), 0.25)
-    se_result <- lca_se(data$pre, data$post, nsamps = 30, seed = 42)
-    se_values[j] <- se_result$stnderrs.lca.params["lgk", 1]
+    se_result <- lca_se(data$pre, data$post, n_resamples = 30, seed = 42)
+    se_values[j] <- se_result$se_params["gk", 1]
   }
 
   expect_lt(se_values[2], se_values[1])
@@ -115,8 +115,8 @@ test_that("learning SE is reasonable", {
 
   data <- simulate_with_learning(n_obs, learning_frac = 0.20, gamma = 0.25)
 
-  se_result <- lca_se(data$pre, data$post, nsamps = n_bootstrap, seed = 123)
-  learning_se <- se_result$stnderrs.effects[1, 1]
+  se_result <- lca_se(data$pre, data$post, n_resamples = n_bootstrap, seed = 123)
+  learning_se <- se_result$se_effects[1, 1]
 
   expect_true(learning_se > 0)
   expect_true(learning_se < 0.5)

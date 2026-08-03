@@ -9,33 +9,33 @@ test_that("lca_cor recovers true parameters with low bias", {
   n_sims <- 100
   n_obs <- 500
 
-  true_lgg <- 0.40
-  true_lgk <- 0.25
-  true_lkk <- 0.35
+  true_gg <- 0.40
+  true_gk <- 0.25
+  true_kk <- 0.35
   true_gamma <- 0.25
 
   estimates <- matrix(NA, nrow = n_sims, ncol = 4)
-  colnames(estimates) <- c("lgg", "lgk", "lkk", "gamma")
+  colnames(estimates) <- c("gg", "gk", "kk", "gamma")
 
   for (sim in seq_len(n_sims)) {
     data <- simulate_prepost_data(
       n_obs,
-      c(true_lgg, true_lgk, true_lkk),
+      c(true_gg, true_gk, true_kk),
       true_gamma
     )
     trans <- multi_transmat(data$pre, data$post)
     result <- lca_cor(trans)
-    estimates[sim, ] <- result$param.lca[, 1]
+    estimates[sim, ] <- result$params[, 1]
   }
 
-  bias_lgg <- mean(estimates[, "lgg"]) - true_lgg
-  bias_lgk <- mean(estimates[, "lgk"]) - true_lgk
-  bias_lkk <- mean(estimates[, "lkk"]) - true_lkk
+  bias_gg <- mean(estimates[, "gg"]) - true_gg
+  bias_gk <- mean(estimates[, "gk"]) - true_gk
+  bias_kk <- mean(estimates[, "kk"]) - true_kk
   bias_gamma <- mean(estimates[, "gamma"]) - true_gamma
 
-  expect_lt(abs(bias_lgg), 0.05)
-  expect_lt(abs(bias_lgk), 0.05)
-  expect_lt(abs(bias_lkk), 0.05)
+  expect_lt(abs(bias_gg), 0.05)
+  expect_lt(abs(bias_gk), 0.05)
+  expect_lt(abs(bias_kk), 0.05)
   expect_lt(abs(bias_gamma), 0.05)
 })
 
@@ -50,35 +50,35 @@ test_that("lca_cor parameter RMSE is within theoretical bounds", {
   n_sims <- 100
   n_obs <- 1000
 
-  true_lgg <- 0.35
-  true_lgk <- 0.30
-  true_lkk <- 0.35
+  true_gg <- 0.35
+  true_gk <- 0.30
+  true_kk <- 0.35
   true_gamma <- 0.25
 
   estimates <- matrix(NA, nrow = n_sims, ncol = 4)
-  colnames(estimates) <- c("lgg", "lgk", "lkk", "gamma")
+  colnames(estimates) <- c("gg", "gk", "kk", "gamma")
 
   for (sim in seq_len(n_sims)) {
     data <- simulate_prepost_data(
       n_obs,
-      c(true_lgg, true_lgk, true_lkk),
+      c(true_gg, true_gk, true_kk),
       true_gamma
     )
     trans <- multi_transmat(data$pre, data$post)
     result <- lca_cor(trans)
-    estimates[sim, ] <- result$param.lca[, 1]
+    estimates[sim, ] <- result$params[, 1]
   }
 
-  rmse_lgg <- sqrt(mean((estimates[, "lgg"] - true_lgg)^2))
-  rmse_lgk <- sqrt(mean((estimates[, "lgk"] - true_lgk)^2))
-  rmse_lkk <- sqrt(mean((estimates[, "lkk"] - true_lkk)^2))
+  rmse_gg <- sqrt(mean((estimates[, "gg"] - true_gg)^2))
+  rmse_gk <- sqrt(mean((estimates[, "gk"] - true_gk)^2))
+  rmse_kk <- sqrt(mean((estimates[, "kk"] - true_kk)^2))
   rmse_gamma <- sqrt(mean((estimates[, "gamma"] - true_gamma)^2))
 
   expected_rmse_order <- 5 / sqrt(n_obs)
 
-  expect_lt(rmse_lgg, expected_rmse_order)
-  expect_lt(rmse_lgk, expected_rmse_order)
-  expect_lt(rmse_lkk, expected_rmse_order)
+  expect_lt(rmse_gg, expected_rmse_order)
+  expect_lt(rmse_gk, expected_rmse_order)
+  expect_lt(rmse_kk, expected_rmse_order)
   expect_lt(rmse_gamma, expected_rmse_order)
 })
 
@@ -101,7 +101,7 @@ test_that("learning estimate recovers true learning fraction", {
     data <- simulate_with_learning(n_obs, learning_frac = true_learning, gamma = 0.25)
     trans <- multi_transmat(data$pre, data$post)
     result <- lca_cor(trans)
-    learning_estimates[sim] <- result$est.learning[1]
+    learning_estimates[sim] <- result$learning[1]
   }
 
   mean_estimate <- mean(learning_estimates)
@@ -113,9 +113,9 @@ test_that("learning estimate recovers true learning fraction", {
 test_that("parameter recovery improves with sample size", {
   set.seed(22222)
 
-  true_lgg <- 0.40
-  true_lgk <- 0.25
-  true_lkk <- 0.35
+  true_gg <- 0.40
+  true_gk <- 0.25
+  true_kk <- 0.35
   true_gamma <- 0.25
 
   sample_sizes <- c(100, 500)
@@ -125,20 +125,20 @@ test_that("parameter recovery improves with sample size", {
     n_obs <- sample_sizes[j]
     n_sims <- 30
 
-    lgk_estimates <- numeric(n_sims)
+    gk_estimates <- numeric(n_sims)
 
     for (sim in seq_len(n_sims)) {
       data <- simulate_prepost_data(
         n_obs,
-        c(true_lgg, true_lgk, true_lkk),
+        c(true_gg, true_gk, true_kk),
         true_gamma
       )
       trans <- multi_transmat(data$pre, data$post)
       result <- lca_cor(trans)
-      lgk_estimates[sim] <- result$param.lca["lgk", 1]
+      gk_estimates[sim] <- result$params["gk", 1]
     }
 
-    rmse_values[j] <- sqrt(mean((lgk_estimates - true_lgk)^2))
+    rmse_values[j] <- sqrt(mean((gk_estimates - true_gk)^2))
   }
 
   expect_lt(rmse_values[2], rmse_values[1])

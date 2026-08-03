@@ -4,7 +4,7 @@
 #' for use in econometric validation tests.
 #'
 #' @param n Number of observations
-#' @param lambdas Vector c(lgg, lgk, lkk) summing to 1
+#' @param lambdas Vector c(gg, gk, kk) summing to 1
 #' @param gamma Guessing probability
 #' @param n_items Number of items (default 2 for compatibility with lca_se)
 #' @return List with pre and post data frames
@@ -44,23 +44,30 @@ simulate_prepost_data <- function(n, lambdas, gamma, n_items = 2) {
 #' Simulate data with specific learning fraction
 #'
 #' @param n Number of observations
-#' @param learning_frac Proportion who learn (lgk)
+#' @param learning_frac Proportion who learn (gk)
 #' @param gamma Guessing probability
-#' @param lkk Proportion who know both times (default 0.3)
+#' @param kk Proportion who know both times (default 0.3)
 #' @param n_items Number of items (default 2)
 #' @return List with pre and post data frames
-simulate_with_learning <- function(n, learning_frac, gamma, lkk = 0.3, n_items = 2) {
-  lgk <- learning_frac
-  lgg <- 1 - lkk - lgk
+simulate_with_learning <- function(n, learning_frac, gamma, kk = 0.3, n_items = 2) {
+  gk <- learning_frac
+  gg <- 1 - kk - gk
 
-  if (lgg < 0) {
-    stop("learning_frac + lkk must be <= 1")
+  if (gg < 0) {
+    stop("learning_frac + kk must be <= 1")
   }
 
-  simulate_prepost_data(n, c(lgg, lgk, lkk), gamma, n_items = n_items)
+  simulate_prepost_data(n, c(gg, gk, kk), gamma, n_items = n_items)
 }
 
 #' Simulate pre-post data with Don't Know responses
+#'
+#' The classes are, in order, gg, gk, gd, kk, dg, dk, dd -- the model's own,
+#' with no know->guess or know->dk. This helper used to draw both of those and
+#' no dk->know, so it generated knowledge loss the model forbids and none of the
+#' learning-from-confessed-ignorance the model defines. Data from it was not
+#' well specified, and any test calling it a Type I error rate was measuring
+#' correct rejection.
 #'
 #' @param n Number of observations
 #' @param lambdas Vector of 7 parameters for DK model
@@ -68,7 +75,7 @@ simulate_with_learning <- function(n, learning_frac, gamma, lkk = 0.3, n_items =
 #' @return List with pre and post data frames (character type with "d")
 simulate_dk_prepost_data <- function(n, lambdas = NULL, gamma = 0.25) {
   if (is.null(lambdas)) {
-    lambdas <- c(0.25, 0.15, 0.10, 0.10, 0.15, 0.10, 0.15)
+    lambdas <- c(0.25, 0.15, 0.10, 0.20, 0.08, 0.12, 0.10)
   }
 
   classes <- sample(1:7, n, replace = TRUE, prob = lambdas)
@@ -89,13 +96,13 @@ simulate_dk_prepost_data <- function(n, lambdas = NULL, gamma = 0.25) {
       post[i] <- "d"
     } else if (cl == 4) {
       pre[i] <- "1"
-      post[i] <- ifelse(rbinom(1, 1, gamma) == 1, "1", "0")
-    } else if (cl == 5) {
-      pre[i] <- "1"
       post[i] <- "1"
+    } else if (cl == 5) {
+      pre[i] <- "d"
+      post[i] <- ifelse(rbinom(1, 1, gamma) == 1, "1", "0")
     } else if (cl == 6) {
-      pre[i] <- "1"
-      post[i] <- "d"
+      pre[i] <- "d"
+      post[i] <- "1"
     } else {
       pre[i] <- "d"
       post[i] <- "d"
@@ -111,20 +118,20 @@ simulate_dk_prepost_data <- function(n, lambdas = NULL, gamma = 0.25) {
 #' Generate transition counts from known parameters
 #'
 #' @param n Number of observations
-#' @param lambdas Vector c(lgg, lgk, lkk)
+#' @param lambdas Vector c(gg, gk, kk)
 #' @param gamma Guessing probability
 #' @return Named vector of transition counts (x00, x01, x10, x11)
 generate_transition_counts <- function(n, lambdas, gamma) {
-  lgg <- lambdas[1]
-  lgk <- lambdas[2]
-  lkk <- lambdas[3]
+  gg <- lambdas[1]
+  gk <- lambdas[2]
+  kk <- lambdas[3]
   g <- gamma
 
   probs <- numeric(4)
-  probs[1] <- (1 - g) * (1 - g) * lgg
-  probs[2] <- (1 - g) * g * lgg + (1 - g) * lgk
-  probs[3] <- (1 - g) * g * lgg
-  probs[4] <- g * g * lgg + g * lgk + lkk
+  probs[1] <- (1 - g) * (1 - g) * gg
+  probs[2] <- (1 - g) * g * gg + (1 - g) * gk
+  probs[3] <- (1 - g) * g * gg
+  probs[4] <- g * g * gg + g * gk + kk
 
   counts <- as.vector(rmultinom(1, n, probs))
   names(counts) <- c("x00", "x01", "x10", "x11")

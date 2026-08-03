@@ -6,11 +6,34 @@
 \alias{fit_nodk}
 \title{Goodness of fit statistics for transition matrix data}
 \usage{
-fit_model(pre_test, pst_test, g, est.param, force9 = FALSE)
+fit_model(
+  pre_test,
+  pst_test,
+  g,
+  est_param,
+  force9 = FALSE,
+  na_as = c("dk", "missing"),
+  missing_action = c("omit", "error")
+)
 
-fit_dk(pre_test, pst_test, g, est.param, force9 = FALSE)
+fit_dk(
+  pre_test,
+  pst_test,
+  g,
+  est_param,
+  force9 = FALSE,
+  na_as = c("dk", "missing"),
+  missing_action = c("omit", "error")
+)
 
-fit_nodk(pre_test, pst_test, g, est.param)
+fit_nodk(
+  pre_test,
+  pst_test,
+  g,
+  est_param,
+  na_as = c("dk", "missing"),
+  missing_action = c("omit", "error")
+)
 }
 \arguments{
 \item{pre_test}{data.frame carrying pre_test items}
@@ -19,16 +42,30 @@ fit_nodk(pre_test, pst_test, g, est.param)
 
 \item{g}{estimates of gamma produced from \code{\link{lca_cor}}}
 
-\item{est.param}{estimated parameters produced from \code{\link{lca_cor}}}
+\item{est_param}{estimated parameters produced from \code{\link{lca_cor}}}
 
 \item{force9}{Optional. Force 9-column format even if no DK responses. Default is FALSE.}
+
+\item{na_as}{Classification of NA responses: `"dk"` (the default) treats
+them as observed don't know responses; `"missing"` treats them as
+structural missingness.}
+
+\item{missing_action}{How to handle structural missingness: `"omit"`
+excludes incomplete pairs and `"error"` rejects them.}
 }
 \value{
 matrix with two rows: top row carrying chi-square value, bottom row p-values
 }
 \description{
-Chi-square goodness of fit between true and model based multivariate distribution.
-Handles both data with and without don't know responses automatically.
+Pearson chi-square goodness of fit between the observed
+transition counts and those the fitted model implies. Handles data with and
+without don't know responses automatically.
+
+Degrees of freedom are the free cell probabilities less the parameters
+estimated from the same counts. The don't-know model leaves 1 degree of
+freedom. The model without don't know is saturated -- 3 free parameters
+against 3 free cell probabilities -- so no test is possible and both rows
+are `NA`.
 }
 \details{
 Unified Goodness of Fit Statistics
@@ -40,7 +77,9 @@ transmatrix <- multi_transmat(pre_test, pst_test)
 res <- lca_cor(transmatrix)
 
 # Calculate goodness of fit
-fit_stats <- fit_model(pre_test, pst_test, res$param.lca[nrow(res$param.lca), ], 
-                       res$param.lca[-nrow(res$param.lca), ])
+fit_stats <- fit_model(
+  pre_test, pst_test, res$params[nrow(res$params), ],
+  res$params[-nrow(res$params), ]
+)
 }
 }

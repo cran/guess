@@ -9,8 +9,8 @@ test_that("no-DK model converges to unique solution from different starting valu
   result2 <- lca_cor(trans, nodk_priors = c(0.5, 0.2, 0.2, 0.30))
   result3 <- lca_cor(trans, nodk_priors = c(0.2, 0.4, 0.3, 0.20))
 
-  expect_equal(result1$param.lca[, 1], result2$param.lca[, 1], tolerance = 0.05)
-  expect_equal(result1$param.lca[, 1], result3$param.lca[, 1], tolerance = 0.05)
+  expect_equal(result1$params[, 1], result2$params[, 1], tolerance = 0.05)
+  expect_equal(result1$params[, 1], result3$params[, 1], tolerance = 0.05)
 })
 
 test_that("model estimates are within valid parameter space", {
@@ -29,10 +29,10 @@ test_that("model estimates are within valid parameter space", {
     trans <- multi_transmat(data$pre, data$post)
     result <- lca_cor(trans)
 
-    params <- result$param.lca[, 1]
+    params <- result$params[, 1]
 
     expect_true(all(params >= 0 & params <= 1))
-    expect_equal(sum(params[1:3]), 1, tolerance = 1e-6)
+    expect_equal(sum(params[c("gg", "gk", "kk")]), 1, tolerance = 1e-6)
   }
 })
 
@@ -45,7 +45,7 @@ test_that("lambda parameters sum to 1", {
     trans <- multi_transmat(data$pre, data$post)
     result <- lca_cor(trans)
 
-    lambda_sum <- sum(result$param.lca[1:3, 1])
+    lambda_sum <- sum(result$params[c("gg", "gk", "kk"), 1])
 
     expect_equal(lambda_sum, 1.0, tolerance = 1e-6)
   }
@@ -76,8 +76,8 @@ test_that("DK model GOF test has reasonable Type I error rate", {
 
         fit_result <- fit_model(
           data$pre, data$post,
-          result$param.lca[8, ],
-          result$param.lca[1:7, ],
+          result$params["gamma", ],
+          result$params[c("gg", "gk", "gd", "kk", "dg", "dk", "dd"), ],
           force9 = TRUE
         )
 
@@ -112,7 +112,7 @@ test_that("model recovers extreme parameter values", {
     trans <- multi_transmat(data$pre, data$post)
     result <- lca_cor(trans)
 
-    estimates <- result$param.lca[1:3, 1]
+    estimates <- result$params[c("gg", "gk", "kk"), 1]
 
     correlation <- cor(estimates, true_lambdas)
 
@@ -137,7 +137,7 @@ test_that("gamma estimate is reasonable across different true values", {
     trans <- multi_transmat(data$pre, data$post)
     result <- lca_cor(trans)
 
-    estimated_gamma <- result$param.lca["gamma", 1]
+    estimated_gamma <- result$params["gamma", 1]
 
     expect_true(
       abs(estimated_gamma - true_gamma) < 0.15,
@@ -172,7 +172,7 @@ test_that("multi-item estimation produces consistent results", {
   trans <- multi_transmat(pre_df, post_df)
   result <- lca_cor(trans)
 
-  gammas <- result$param.lca["gamma", ]
+  gammas <- result$params["gamma", ]
 
   expect_equal(length(gammas), n_items)
   expect_true(all(gammas > 0 & gammas < 1))

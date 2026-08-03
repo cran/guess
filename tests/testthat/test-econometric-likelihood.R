@@ -8,15 +8,15 @@ test_that("cell probabilities sum to 1 for any valid parameters", {
     gamma <- runif(1, 0.1, 0.9)
 
     g <- gamma
-    lgg <- lambdas[1]
-    lgk <- lambdas[2]
-    lkk <- lambdas[3]
+    gg <- lambdas[1]
+    gk <- lambdas[2]
+    kk <- lambdas[3]
 
     vec <- numeric(4)
-    vec[1] <- (1 - g) * (1 - g) * lgg
-    vec[2] <- (1 - g) * g * lgg + (1 - g) * lgk
-    vec[3] <- (1 - g) * g * lgg
-    vec[4] <- g * g * lgg + g * lgk + lkk
+    vec[1] <- (1 - g) * (1 - g) * gg
+    vec[2] <- (1 - g) * g * gg + (1 - g) * gk
+    vec[3] <- (1 - g) * g * gg
+    vec[4] <- g * g * gg + g * gk + kk
 
     expect_equal(sum(vec), 1, tolerance = 1e-10)
   }
@@ -32,15 +32,15 @@ test_that("cell probabilities are non-negative for all valid parameters", {
     gamma <- runif(1, 0.01, 0.99)
 
     g <- gamma
-    lgg <- lambdas[1]
-    lgk <- lambdas[2]
-    lkk <- lambdas[3]
+    gg <- lambdas[1]
+    gk <- lambdas[2]
+    kk <- lambdas[3]
 
     vec <- numeric(4)
-    vec[1] <- (1 - g) * (1 - g) * lgg
-    vec[2] <- (1 - g) * g * lgg + (1 - g) * lgk
-    vec[3] <- (1 - g) * g * lgg
-    vec[4] <- g * g * lgg + g * lgk + lkk
+    vec[1] <- (1 - g) * (1 - g) * gg
+    vec[2] <- (1 - g) * g * gg + (1 - g) * gk
+    vec[3] <- (1 - g) * g * gg
+    vec[4] <- g * g * gg + g * gk + kk
 
     expect_true(all(vec >= 0))
   }
@@ -57,15 +57,15 @@ test_that("expected values match likelihood function formulas", {
 
   for (gamma_i in gamma_values) {
     for (lambdas in lambda_sets) {
-      lgg <- lambdas[1]
-      lgk <- lambdas[2]
-      lkk <- lambdas[3]
+      gg <- lambdas[1]
+      gk <- lambdas[2]
+      kk <- lambdas[3]
 
       lik_vec <- numeric(4)
-      lik_vec[1] <- (1 - gamma_i) * (1 - gamma_i) * lgg
-      lik_vec[2] <- (1 - gamma_i) * gamma_i * lgg + (1 - gamma_i) * lgk
-      lik_vec[3] <- (1 - gamma_i) * gamma_i * lgg
-      lik_vec[4] <- gamma_i * gamma_i * lgg + gamma_i * lgk + lkk
+      lik_vec[1] <- (1 - gamma_i) * (1 - gamma_i) * gg
+      lik_vec[2] <- (1 - gamma_i) * gamma_i * gg + (1 - gamma_i) * gk
+      lik_vec[3] <- (1 - gamma_i) * gamma_i * gg
+      lik_vec[4] <- gamma_i * gamma_i * gg + gamma_i * gk + kk
 
       expected <- calculate_expected_values(gamma_i, lambdas, 1, "nodk")
 
@@ -107,35 +107,42 @@ test_that("negative log-likelihood is minimized near true parameters", {
   }
 })
 
-test_that("DK model cell probabilities are non-negative", {
+test_that("DK model cell probabilities are non-negative and sum to 1", {
+  # This test used to restate the cell equations inline and assert only that
+  # they were non-negative. They were -- and they also summed to as much as
+  # 2.29, because they were not the model's equations. It now calls the
+  # function the likelihood actually uses, and checks the property that
+  # distinguishes a distribution from an arbitrary set of non-negative numbers.
   set.seed(44)
-  n_tests <- 50
 
-  for (i in seq_len(n_tests)) {
+  for (i in seq_len(200)) {
     lambdas <- runif(7)
     lambdas <- lambdas / sum(lambdas)
     gamma <- runif(1, 0.1, 0.9)
 
-    g <- gamma
-    lgg <- lambdas[1]
-    lgk <- lambdas[2]
-    lgd <- lambdas[3]
-    lkg <- lambdas[4]
-    lkk <- lambdas[5]
-    lkd <- lambdas[6]
-    ldd <- lambdas[7]
+    vec <- dk_cell_probs(
+      lambdas[1], lambdas[2], lambdas[3], lambdas[4],
+      lambdas[5], lambdas[6], lambdas[7], gamma
+    )
 
-    vec <- numeric(9)
-    vec[1] <- (1 - g) * (1 - g) * lgg
-    vec[2] <- (1 - g) * g * lgg + (1 - g) * lgk
-    vec[3] <- (1 - g) * lgd
-    vec[4] <- (1 - g) * g * lgg + lkg
-    vec[5] <- g * g * lgg + g * lgk + g * lkg + lkk
-    vec[6] <- g * lgd + lkd
-    vec[7] <- lkg
-    vec[8] <- g * lgk + lkd
-    vec[9] <- ldd
-
+    expect_length(vec, 9)
     expect_true(all(vec >= 0))
+    expect_equal(sum(vec), 1)
+  }
+})
+
+test_that("no-DK cell probabilities are non-negative and sum to 1", {
+  set.seed(45)
+
+  for (i in seq_len(200)) {
+    lambdas <- runif(3)
+    lambdas <- lambdas / sum(lambdas)
+    gamma <- runif(1, 0.1, 0.9)
+
+    vec <- nodk_cell_probs(lambdas[1], lambdas[2], lambdas[3], gamma)
+
+    expect_length(vec, 4)
+    expect_true(all(vec >= 0))
+    expect_equal(sum(vec), 1)
   }
 })
